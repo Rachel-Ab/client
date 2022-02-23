@@ -65,13 +65,8 @@ router.post('/create', [auth, upload.single('image')], async (req, res) => {
   }
 
   try {
-    const {
-      category_id,
-      title,
-      metaDescription,
-      description,
-      priceHT,
-    } = req.body;
+    const { category_id, title, metaDescription, description, priceHT } =
+      req.body;
 
     const catInstance = Category();
 
@@ -142,7 +137,7 @@ router.patch(
           },
         }
       );
-      res.status(200).json({ msg: 'Product updated' });
+      res.status(200).json({ msg: 'Products updated' });
     } catch (e) {
       res.status(400).send('Server Error');
     }

@@ -23,8 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .idea
-dashboard
-auth
-reducers
-actions
-NavLinks.js
+

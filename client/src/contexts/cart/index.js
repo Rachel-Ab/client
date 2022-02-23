@@ -1,7 +1,6 @@
 import { createContext, useReducer } from 'react';
-
 import { GET_CART_ITEMS, ADD_TO_CART } from './types';
-import login from '../../components/auth/Login';
+
 // Définition du state, du context etc etc
 const initialState = {
   products: JSON.parse(localStorage.getItem('cart')) || [],
@@ -38,6 +37,7 @@ const reducer = (state, action) => {
       };
     }
 
+    // ?
     case GET_CART_ITEMS: {
       return {
         ...state,

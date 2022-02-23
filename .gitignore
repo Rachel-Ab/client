@@ -6,14 +6,4 @@ tmp/
 temp/
 .env
 uploads
-CardSection.jsx
-Cart.jsx
-Checkout.jsx
-CheckoutForm.jsx
-Product.jsx
-Products.jsx
-ReduxSteps.jsx
-Thanks.jsx
-NavLinks.jsx
-PrivateRoutes.jsx
-store.js
+server.js

@@ -16,12 +16,13 @@ import Shop from './components/front/pages/Shop';
 import ProdPage from './components/front/pages/ProdPage';
 import Cart from './components/front/pages/Cart';
 import WelcomeAdmin from './components/dashboard/WelcomeAdmin';
-function App() {
+
+const App = () => {
   useEffect(() => {
     // Ici, vérification du localstorage pour le token d'authentification
     // S'il est présent on configure axios, sinon rien
 
-    //
+    // ? Toujours utile ?
     if (localStorage.getItem('cart') === null) {
       localStorage.setItem('cart', '[]');
     }
@@ -48,12 +49,12 @@ function App() {
               authenticated={true}
               loading={false}
             />
-            <Route to="/404" component={NotFound} />
+            <PublicRoute to="/404" component={NotFound} />
           </Switch>
         </Router>
       </CartProvider>
     </ProductProvider>
   );
-}
+};
 
 export default App;
