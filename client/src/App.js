@@ -12,6 +12,7 @@ import Landing from './components/front/pages/Landing';
 import About from './components/front/pages/About';
 import Blog from './components/front/pages/Blog';
 import Shop from './components/front/pages/Shop';
+import ProdPage from './components/front/pages/ProdPage';
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
         <PublicRoute path="/about" component={About} />
         <ProductProvider>
           <PublicRoute path="/shop" component={Shop} />
+          <PublicRoute path="/product/:id" component={ProdPage} />
         </ProductProvider>
         <PublicRoute exact path="/blog" component={Blog} />
 

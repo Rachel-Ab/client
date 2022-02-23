@@ -2,6 +2,7 @@ import React, { useEffect, useContext, Fragment } from 'react';
 import { ProductContext } from '../../../contexts/products';
 import axios from 'axios';
 import { GET_PRODUCTS } from '../../../contexts/products/types';
+import Products from './Products';
 
 const Shop = () => {
   const [productsState, dispatch] = useContext(ProductContext);
@@ -40,26 +41,11 @@ const Shop = () => {
 
         <div>
           <div className="products text-center">
-            {/*
-             Récupère les données qui sont dans productsState.products
-
-             Faire un map classique
-
-             productState.products == error
-
-             optional chaining : productsState?.products
-
-             Ne pas oublier le props key
-             */}
-            <div className="product">
-              <a href="#!">
-                <img src="https://www.fillmurray.com/g/300/200" alt="" />
-              </a>
-              <a href="#!">
-                <div className="product-name">nom produit</div>
-              </a>
-              <div className="product-price">200€</div>
-            </div>
+            {/*optional chaining : productsState?.products :
+              Si productsState est pas prêt, grâce au ? on
+              n'aura pas d'erreur.
+              */}
+            <Products products={productsState?.products} />
           </div>
         </div>
       </div>
