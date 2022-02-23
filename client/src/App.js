@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ProductProvider } from './contexts/products';
 import PublicRoute from './components/routes/PublicRoute';
 
 // Public Routes
@@ -11,7 +12,7 @@ import Shop from './components/front/pages/Shop';
 
 function App() {
   useEffect(() => {
-    console.log("est ce qu'on a un token ?");
+    // console.log("est ce qu'on a un token ?");
   }, []);
 
   return (
@@ -21,7 +22,9 @@ function App() {
         {/*<PublicRoute path="/register" component={Register} />*/}
         {/*<PublicRoute path="/login" component={Login} />*/}
         <PublicRoute path="/about" component={About} />
-        <PublicRoute path="/shop" component={Shop} />
+        <ProductProvider>
+          <PublicRoute path="/shop" component={Shop} />
+        </ProductProvider>
         <PublicRoute exact path="/blog" component={Blog} />
 
         {/* Private Routes */}

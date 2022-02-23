@@ -1,15 +1,15 @@
 import React, { useEffect, useContext, Fragment } from 'react';
-import axios from 'axios';
 import { ProductContext } from '../../../contexts/products';
-import { GET_PRODUCTS } from '../../../contexts/types';
+import axios from 'axios';
+import { GET_PRODUCTS } from '../../../contexts/products/types';
 
 const Shop = () => {
   const [productsState, dispatch] = useContext(ProductContext);
 
   useEffect(() => {
-    dispatch({ type: GET_PRODUCTS, payload: null });
-
-    console.log(productsState);
+    axios.get('/api/products').then(res => {
+      dispatch({ type: GET_PRODUCTS, payload: res.data });
+    });
   }, []);
 
   return (
@@ -40,6 +40,17 @@ const Shop = () => {
 
         <div>
           <div className="products text-center">
+            {/*
+             Récupère les données qui sont dans productsState.products
+
+             Faire un map classique
+
+             productState.products == error
+
+             optional chaining : productsState?.products
+
+             Ne pas oublier le props key
+             */}
             <div className="product">
               <a href="#!">
                 <img src="https://www.fillmurray.com/g/300/200" alt="" />

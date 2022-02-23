@@ -1,27 +1,19 @@
 import { createContext, useReducer } from 'react';
-import axios from 'axios';
+
 import { GET_PRODUCTS } from './types';
 // Définition du state, du context etc etc
 const initialState = {
   products: [],
 };
 
-const reducer = async (state, action) => {
+const reducer = (state, action) => {
   switch (action.type) {
     case GET_PRODUCTS: {
-      try {
-        const response = await axios.get('/api/products');
-        return {
-          ...state,
-          products: response.data,
-        };
-      } catch (e) {
-        console.log(e);
-      }
+      return {
+        ...state,
+        products: action.payload,
+      };
     }
-
-    default:
-      return state;
   }
 };
 
