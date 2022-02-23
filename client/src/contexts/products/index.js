@@ -1,9 +1,10 @@
 import { createContext, useReducer } from 'react';
 
-import { GET_PRODUCTS } from './types';
+import { GET_PRODUCTS, GET_ONE_PRODUCT } from './types';
 // Définition du state, du context etc etc
 const initialState = {
   products: [],
+  product: {},
 };
 
 const reducer = (state, action) => {
@@ -14,6 +15,16 @@ const reducer = (state, action) => {
         products: action.payload,
       };
     }
+
+    case GET_ONE_PRODUCT: {
+      return {
+        ...state,
+        product: action.payload,
+      };
+    }
+
+    default:
+      return state;
   }
 };
 

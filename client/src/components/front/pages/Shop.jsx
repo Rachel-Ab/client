@@ -42,7 +42,7 @@ const Shop = () => {
         <div>
           <div className="products text-center">
             {/*optional chaining : productsState?.products :
-              Si productsState est pas prêt, grâce au ? on
+              Si productsState n'est pas prêt, grâce au ? on
               n'aura pas d'erreur.
               */}
             <Products products={productsState?.products} />
