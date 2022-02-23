@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
   return (
@@ -25,6 +25,9 @@ const Nav = () => {
           </li>
           <li>
             <NavLink to="/login">Sign in</NavLink>
+          </li>
+          <li>
+            <NavLink to="/cart">Panier</NavLink>
           </li>
         </ul>
       </div>

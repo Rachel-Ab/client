@@ -14,8 +14,8 @@ import About from './components/front/pages/About';
 import Blog from './components/front/pages/Blog';
 import Shop from './components/front/pages/Shop';
 import ProdPage from './components/front/pages/ProdPage';
+import Cart from './components/front/pages/Cart';
 import WelcomeAdmin from './components/dashboard/WelcomeAdmin';
-
 function App() {
   useEffect(() => {
     // Ici, vérification du localstorage pour le token d'authentification
@@ -38,6 +38,7 @@ function App() {
             <PublicRoute path="/about" component={About} />
             <PublicRoute path="/shop" component={Shop} />
             <PublicRoute path="/product/:id" component={ProdPage} />
+            <PublicRoute path="/cart" component={Cart} />
             <PublicRoute path="/blog" component={Blog} />
 
             {/* Private Routes */}
