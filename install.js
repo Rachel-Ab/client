@@ -16,6 +16,8 @@ const { Sequelize } = pkg;
  */
 router.get('/install', async (req, res) => {
   try {
+    console.log(process);
+
     const sequelize = new Sequelize(
       '',
       process.env.DB_USERNAME,

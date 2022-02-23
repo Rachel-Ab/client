@@ -7,6 +7,7 @@ import NotFound from './components/NotFound';
 import Landing from './components/front/pages/Landing';
 import About from './components/front/pages/About';
 import Blog from './components/front/pages/Blog';
+import Shop from './components/front/pages/Shop';
 
 function App() {
   useEffect(() => {
@@ -20,7 +21,7 @@ function App() {
         {/*<PublicRoute path="/register" component={Register} />*/}
         {/*<PublicRoute path="/login" component={Login} />*/}
         <PublicRoute path="/about" component={About} />
-
+        <PublicRoute path="/shop" component={Shop} />
         <PublicRoute exact path="/blog" component={Blog} />
 
         {/* Private Routes */}
