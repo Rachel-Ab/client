@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { AuthProvider } from './contexts/auth';
 import { ProductProvider } from './contexts/products';
 import PublicRoute from './components/routes/PublicRoute';
 

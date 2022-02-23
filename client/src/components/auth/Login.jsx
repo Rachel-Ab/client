@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+// import { REGISTER } from '../../contexts/auth/types';
+// import { AuthContext } from '../../contexts/auth';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+  // const [, dispatch] = useContext(AuthContext);
   const login = e => {
     e.preventDefault();
 
@@ -9,15 +12,15 @@ const Login = () => {
   };
 
   const handleChange = e => {
-    console.log(e);
+    console.log(e.target.name, e.target.value);
   };
 
   return (
     <div className="container">
       Login or <Link to="/register">Register</Link>
       <form onSubmit={login}>
-        <input type="email" onChange={handleChange} />
-        <input type="password" onChange={handleChange} />
+        <input name="email" type="email" onChange={handleChange} />
+        <input name="password" type="password" onChange={handleChange} />
         <button type="submit">Envoyer</button>
       </form>
     </div>
