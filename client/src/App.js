@@ -2,8 +2,9 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/auth';
 import { ProductProvider } from './contexts/products';
+import { CartProvider } from './contexts/cart';
 import PublicRoute from './components/routes/PublicRoute';
-
+import PrivateRoute from './components/routes/PrivateRoute';
 // Public Routes
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -13,31 +14,44 @@ import About from './components/front/pages/About';
 import Blog from './components/front/pages/Blog';
 import Shop from './components/front/pages/Shop';
 import ProdPage from './components/front/pages/ProdPage';
+import WelcomeAdmin from './components/dashboard/WelcomeAdmin';
 
 function App() {
   useEffect(() => {
     // Ici, vérification du localstorage pour le token d'authentification
     // S'il est présent on configure axios, sinon rien
+
+    //
+    if (localStorage.getItem('cart') === null) {
+      localStorage.setItem('cart', '[]');
+    }
   }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <PublicRoute path="/register" component={Register} />
-        <PublicRoute path="/login" component={Login} />
-        <PublicRoute path="/about" component={About} />
-        <ProductProvider>
-          <PublicRoute path="/shop" component={Shop} />
-          <PublicRoute path="/product/:id" component={ProdPage} />
-        </ProductProvider>
-        <PublicRoute exact path="/blog" component={Blog} />
+    <ProductProvider>
+      <CartProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <PublicRoute path="/register" component={Register} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/about" component={About} />
+            <PublicRoute path="/shop" component={Shop} />
+            <PublicRoute path="/product/:id" component={ProdPage} />
+            <PublicRoute path="/blog" component={Blog} />
 
-        {/* Private Routes */}
-
-        <Route to="/404" component={NotFound} />
-      </Switch>
-    </Router>
+            {/* Private Routes */}
+            <PrivateRoute
+              path="/dashboard"
+              component={WelcomeAdmin}
+              authenticated={true}
+              loading={false}
+            />
+            <Route to="/404" component={NotFound} />
+          </Switch>
+        </Router>
+      </CartProvider>
+    </ProductProvider>
   );
 }
 

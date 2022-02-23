@@ -2,11 +2,14 @@ import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ProductContext } from '../../../contexts/products';
+import { CartContext } from '../../../contexts/cart';
 import { GET_ONE_PRODUCT } from '../../../contexts/products/types';
+import { ADD_TO_CART } from '../../../contexts/cart/types';
 
 const ProdPage = () => {
   const { id } = useParams();
   const [prodState, dispatch] = useContext(ProductContext);
+  const [, dispatchCart] = useContext(CartContext);
 
   useEffect(() => {
     // GET_ONE_PRODUCT
@@ -17,7 +20,10 @@ const ProdPage = () => {
   }, []);
 
   const addToCart = () => {
-    console.log('Adding to cart');
+    // Ajouter les produits au localStorage
+    dispatchCart({ type: ADD_TO_CART, payload: prodState?.product?.id });
+    // Puis créer une page qui permet d'afficher les produits qui sont dans le panier
+    // Utiliser un tableau d'objets
   };
 
   return (
@@ -31,7 +37,9 @@ const ProdPage = () => {
         <p>{prodState?.product?.title}</p>
         <p>{prodState?.product?.description}</p>
 
-        <button onClick={addToCart}>Ajouter au panier</button>
+        <button className="SubmitButton" onClick={addToCart}>
+          Ajouter au panier
+        </button>
       </div>
     </div>
   );
