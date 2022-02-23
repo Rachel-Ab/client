@@ -1,14 +1,15 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, useContext, Fragment } from 'react';
 import axios from 'axios';
+import { ProductContext } from '../../../contexts/products';
+import { GET_PRODUCTS } from '../../../contexts/types';
 
 const Shop = () => {
-  useEffect(() => {
-    console.log('faire appel au contexte pour faire une requête');
+  const [productsState, dispatch] = useContext(ProductContext);
 
-    axios
-      .get('/api/products')
-      .then(response => console.log(response.data))
-      .catch(e => console.log(e));
+  useEffect(() => {
+    dispatch({ type: GET_PRODUCTS, payload: null });
+
+    console.log(productsState);
   }, []);
 
   return (
