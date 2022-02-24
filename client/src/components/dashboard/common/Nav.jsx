@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import axios from 'axios';
+import { AuthContext } from '../../../contexts/auth';
+import { GET_USER } from '../../../contexts/auth/types';
 import { NavLink } from 'react-router-dom';
 
 const Nav = () => {
+  const [authState, dispatch] = useContext(AuthContext);
+
+  useEffect(() => {
+    axios.get('/api/auth').then(res => {
+      dispatch({ type: GET_USER, payload: res.data });
+    });
+  }, []);
+
   return (
     <nav
       id="sidebarMenu"
@@ -9,81 +20,60 @@ const Nav = () => {
     >
       <div className="position-sticky pt-3">
         <ul className="nav flex-column">
+          {/*open bar*/}
           <li className="nav-item">
             <NavLink className="nav-link" aria-current="page" to="/dashboard">
               <span data-feather="home" />
               Dashboard
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/orders">
-              <span data-feather="file" />
-              Orders
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="shopping-cart" />
-              Products
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="users" />
-              Customers
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="bar-chart-2" />
-              Reports
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="layers" />
-              Users
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="layers" />
-              Employees
-            </a>
-          </li>
-        </ul>
-
-        <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a className="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle" />
-          </a>
-        </h6>
-        <ul className="nav flex-column mb-2">
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="file-text" />
-              Current month
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="file-text" />
-              Last quarter
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="file-text" />
-              Social engagement
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              <span data-feather="file-text" />
-              Year-end sale
-            </a>
-          </li>
+          {/*employee ou admin*/}
+          {authState?.user?.Role?.name === 'employee' ||
+          authState?.user?.Role?.name === 'admin' ? (
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/orders">
+                  <span data-feather="file" />
+                  Orders
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  <span data-feather="shopping-cart" />
+                  Products
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  <span data-feather="users" />
+                  Customers
+                </a>
+              </li>
+            </>
+          ) : null}
+          {/* admin */}
+          {authState?.user?.Role?.name === 'admin' ? (
+            <>
+              <li>
+                <a className="nav-link" href="#">
+                  <span data-feather="bar-chart-2" />
+                  Reports
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  <span data-feather="layers" />
+                  Users
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  <span data-feather="layers" />
+                  Employees
+                </a>
+              </li>
+            </>
+          ) : null}
         </ul>
       </div>
     </nav>

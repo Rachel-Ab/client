@@ -1,11 +1,12 @@
 import { createContext, useReducer } from 'react';
 
-import { REGISTER, LOGIN, LOGOUT, ERROR } from './types';
+import { REGISTER, LOGIN, LOGOUT, ERROR, GET_USER } from './types';
 // Définition du state, du context etc etc
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true,
+  user: {},
 };
 
 const reducer = (state, action) => {
@@ -18,12 +19,19 @@ const reducer = (state, action) => {
         isAuthenticated: true,
         loading: false,
       };
-
+    // Y penser
     case LOGOUT:
     case ERROR: {
       return {
         ...state,
         user: '',
+      };
+    }
+
+    case GET_USER: {
+      return {
+        ...state,
+        user: action.payload,
       };
     }
   }
