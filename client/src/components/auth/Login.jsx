@@ -1,14 +1,21 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 // import { REGISTER } from '../../contexts/auth/types';
 // import { AuthContext } from '../../contexts/auth';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
   // const [, dispatch] = useContext(AuthContext);
+
   const login = e => {
     e.preventDefault();
-
     console.log('login in');
+
+    // api/auth
+    // axios
+    //   .post('/api/auth', { email:'test@test.com', password: 'testing' })
+    //   .then(res => console.log(res.data))
+    //   .catch(e => console.error(e));
   };
 
   const handleChange = e => {

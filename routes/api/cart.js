@@ -19,7 +19,7 @@ router.post(
     try {
       const errors = validationResult(req);
       const ids = req.body.ids;
-      console.log(ids);
+
       for (let id of ids) {
         if (!parseInt(id)) {
           return res.status(400).json({ errors: ['Id incorrect'] });

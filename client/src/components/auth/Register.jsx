@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 // import { LOGIN } from '../../contexts/auth/types';
 // import { AuthContext } from '../../contexts/auth';
 import { Link } from 'react-router-dom';
@@ -8,6 +9,13 @@ const Register = () => {
 
   const register = e => {
     e.preventDefault();
+
+    // api/users/register
+    // axios
+    //   .post('/api/users/register', { email:'test@test.com', password: 'testing' })
+    //   .then(res => console.log(res.data))
+    //   .catch(e => console.error(e));
+
     console.log('registering');
   };
 

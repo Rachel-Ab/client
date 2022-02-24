@@ -52,6 +52,7 @@ router.post(
     try {
       const { email, password } = req.body;
       // Does user exist ?
+
       const userInstance = User();
       const user = await userInstance.findOne({
         where: { email: email },
