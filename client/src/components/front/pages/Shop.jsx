@@ -24,7 +24,7 @@ const Shop = () => {
       </div>
 
       <div className="products-section container">
-        <div className="sidebar">
+        <div className="">
           <h3>Trier par catégorie</h3>
           <ul>
             <li>cat 1</li>
