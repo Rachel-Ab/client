@@ -31,27 +31,29 @@ const App = () => {
   return (
     <ProductProvider>
       <CartProvider>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <PublicRoute path="/register" component={Register} />
-            <PublicRoute path="/login" component={Login} />
-            <PublicRoute path="/about" component={About} />
-            <PublicRoute path="/shop" component={Shop} />
-            <PublicRoute path="/product/:id" component={ProdPage} />
-            <PublicRoute path="/cart" component={Cart} />
-            <PublicRoute path="/blog" component={Blog} />
+        <AuthProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <PublicRoute path="/register" component={Register} />
+              <PublicRoute path="/login" component={Login} />
+              <PublicRoute path="/about" component={About} />
+              <PublicRoute path="/shop" component={Shop} />
+              <PublicRoute path="/product/:id" component={ProdPage} />
+              <PublicRoute path="/cart" component={Cart} />
+              <PublicRoute path="/blog" component={Blog} />
 
-            {/* Private Routes */}
-            <PrivateRoute
-              path="/dashboard"
-              component={WelcomeAdmin}
-              authenticated={true}
-              loading={false}
-            />
-            <PublicRoute to="/404" component={NotFound} />
-          </Switch>
-        </Router>
+              {/* Private Routes */}
+              <PrivateRoute
+                path="/dashboard"
+                component={WelcomeAdmin}
+                authenticated={true}
+                loading={false}
+              />
+              <PublicRoute to="/404" component={NotFound} />
+            </Switch>
+          </Router>
+        </AuthProvider>
       </CartProvider>
     </ProductProvider>
   );

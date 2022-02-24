@@ -1,30 +1,29 @@
 import { createContext, useReducer } from 'react';
 
-import { REGISTER, LOGIN, LOGOUT } from './types';
+import { REGISTER, LOGIN, LOGOUT, ERROR } from './types';
 // Définition du state, du context etc etc
 const initialState = {
-  user: [],
+  token: localStorage.getItem('token'),
+  isAuthenticated: false,
+  loading: true,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case REGISTER: {
+    case REGISTER:
+    case LOGIN:
       return {
         ...state,
-        user: action.payload,
+        token: action.payload,
+        isAuthenticated: true,
+        loading: false,
       };
-    }
 
-    case LOGIN: {
+    case LOGOUT:
+    case ERROR: {
       return {
         ...state,
-        user: action.payload,
-      };
-    }
-    case LOGOUT: {
-      return {
-        ...state,
-        user: action.payload,
+        user: '',
       };
     }
   }
