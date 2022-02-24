@@ -20,7 +20,9 @@ import Blog from './components/front/pages/Blog';
 import Shop from './components/front/pages/Shop';
 import ProdPage from './components/front/pages/ProdPage';
 import Cart from './components/front/pages/Cart';
+// Private Routes
 import WelcomeAdmin from './components/dashboard/WelcomeAdmin';
+import AdminProducts from './components/dashboard/AdminProducts';
 
 const App = () => {
   const [authState, dispatch] = useContext(AuthContext);
@@ -57,9 +59,12 @@ const App = () => {
               <PublicRoute path="/blog" component={Blog} />
 
               {/* Private Routes */}
-              <PrivateRoute path="/dashboard" component={WelcomeAdmin} />
+              <PrivateRoute exact path="/dashboard" component={WelcomeAdmin} />
               <PrivateRoute path="/orders" component={WelcomeAdmin} />
-
+              <PrivateRoute
+                path="/dashboard/Products"
+                component={AdminProducts}
+              />
               <PublicRoute to="/404" component={NotFound} />
             </Switch>
           </Router>

@@ -22,7 +22,12 @@ const Nav = () => {
         <ul className="nav flex-column">
           {/*open bar*/}
           <li className="nav-item">
-            <NavLink className="nav-link" aria-current="page" to="/dashboard">
+            <NavLink
+              exact
+              className="nav-link"
+              aria-current="page"
+              to="/dashboard"
+            >
               <span data-feather="home" />
               Dashboard
             </NavLink>
@@ -40,14 +45,14 @@ const Nav = () => {
               <li className="nav-item">
                 <a className="nav-link" href="#">
                   <span data-feather="shopping-cart" />
-                  Products
+                  Categories
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink exact className="nav-link" to="/dashboard/products">
                   <span data-feather="users" />
-                  Customers
-                </a>
+                  Products
+                </NavLink>
               </li>
             </>
           ) : null}
