@@ -11,6 +11,8 @@ const Shop = () => {
     axios.get('/api/products').then(res => {
       dispatch({ type: GET_PRODUCTS, payload: res.data });
     });
+
+    // url : '/api/categories'
   }, [dispatch]);
 
   return (
