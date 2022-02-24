@@ -26,21 +26,62 @@ const AdminProducts = () => {
       {/*FormRow */}
       {/*FormRow:first-child*/}
 
-      <div>
-        <form className="half-form Form">
+      <div className="half-form col-md-8">
+        <form className="Form half-form">
           <div className="form-group FormGroup">
             <div className="FormRow">
-              <label className="FormRowLabel" htmlFor="title" />
-              <input type="text" name="title" id="title" />
+              <label className="FormRowLabel" htmlFor="title">
+                Title
+              </label>
+              <input type="text" name="title" id="title" placeholder="title" />
             </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="metaDescription" />
-            <input type="text" name="metaDescription" id="metaDescription" />
+          <div className="form-group FormGroup">
+            <div className="FormRow">
+              <label className="FormRowLabel" htmlFor="metaDescription">
+                meta desc
+              </label>
+              <input
+                type="text"
+                name="metaDescription"
+                id="metaDescription"
+                placeholder="metaDescription"
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="description" />
-            <input type="text" name="description" id="description" />
+          <div className="form-group FormGroup">
+            <div className="FormRow">
+              <label className="FormRowLabel" htmlFor="description">
+                Description
+              </label>
+              <input
+                type="text"
+                name="description"
+                id="description"
+                placeholder="description"
+              />
+            </div>
+          </div>
+          <div className="form-group FormGroup">
+            <div className="FormRow">
+              <label className="FormRowLabel" htmlFor="image">
+                Image
+              </label>
+              <input type="file" name="image" id="image" placeholder="image" />
+            </div>
+          </div>
+          <div className="form-group FormGroup">
+            <div className="FormRow">
+              <label className="FormRowLabel" htmlFor="category_id">
+                Category
+              </label>
+              <select name="category_id" id="category_id">
+                <option value="1">nom de la cat</option>
+                <option value="2">nom de la cat</option>
+                <option value="3">nom de la cat</option>
+                <option value="4">nom de la cat</option>
+              </select>
+            </div>
           </div>
 
           <button type="submit">Submit</button>
