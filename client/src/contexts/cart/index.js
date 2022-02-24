@@ -42,11 +42,9 @@ const reducer = (state, action) => {
 
     // ?
     case GET_CART_ITEMS: {
-      console.log(action.payload);
-
       return {
         ...state,
-        product: action.payload,
+        products: action.payload,
       };
     }
 

@@ -1,5 +1,5 @@
 function convertToEuro(priceHT) {
-  return priceHT / 100;
+  return parseInt(priceHT) / 100;
 }
 
 function addTva(priceHT) {
