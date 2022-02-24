@@ -1,7 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
-const AdminProducts = props => {
+// Les champs name pour créer un prod category_id, title, metaDescription, description, priceHT
+// + image
+const AdminProducts = () => {
   return (
     <div>
       Page admin products
@@ -17,7 +18,5 @@ const AdminProducts = props => {
     </div>
   );
 };
-
-AdminProducts.propTypes = {};
 
 export default AdminProducts;
