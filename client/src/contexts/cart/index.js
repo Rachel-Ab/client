@@ -9,22 +9,25 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART: {
-      const prods = state.products;
+      let prods = state.products;
+      let newProds = prods;
+      let newProd = {};
 
       const id = action.payload;
 
       let prod = { id, qty: 1 };
-      let newProds = [];
 
       if (prods.length) {
-        newProds = prods.map(product => {
-          if (prod.id === product.id) {
-            // Limiter la quantite de produit qu'on veut ajouter
-            return { id: product.id, qty: product.qty + 1 };
-          } else {
-            return prod;
-          }
+        newProd = prods.find(product => {
+          return product.id === prod.id;
         });
+        if (newProd) {
+          newProd = { id: newProd.id, qty: newProd.qty + 1 };
+
+          newProds = prods.map(p => (p.id === prod.id ? newProd : p));
+        } else {
+          newProds.push(prod);
+        }
       } else {
         newProds.push(prod);
       }
@@ -39,6 +42,8 @@ const reducer = (state, action) => {
 
     // ?
     case GET_CART_ITEMS: {
+      console.log(action.payload);
+
       return {
         ...state,
         product: action.payload,

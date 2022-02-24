@@ -16,17 +16,18 @@ router.post(
   [check('ids', 'Un probleme est survenu').isArray()],
   async function (req, res) {
     //
-    const errors = validationResult(req);
-    const { ids } = req.body;
-    for (let id of ids) {
-      if (!parseInt(id)) {
-        return res.status(400).json({ errors: ['Id incorrect'] });
-      }
-    }
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
     try {
+      const errors = validationResult(req);
+      const ids = req.body.ids;
+
+      for (let id of ids) {
+        if (!parseInt(id)) {
+          return res.status(400).json({ errors: ['Id incorrect'] });
+        }
+      }
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
       let productInstance = Product();
 
       // Faire une requête pour aller chercher les produits dont l'id est parmi celle qu'on a en param
@@ -52,6 +53,7 @@ router.post(
 
       res.status(200).json(products);
     } catch (e) {
+      console.error(e);
       console.error(e.message);
       res.status(500).send('Server Error');
     }

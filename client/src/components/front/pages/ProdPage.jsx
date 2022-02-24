@@ -17,11 +17,13 @@ const ProdPage = () => {
     axios.get(`/api/products/${id}`).then(res => {
       dispatch({ type: GET_ONE_PRODUCT, payload: res.data });
     });
-  }, []);
+  }, [dispatch, id]);
 
   const addToCart = () => {
     // Ajouter les produits au localStorage
-    dispatchCart({ type: ADD_TO_CART, payload: prodState?.product?.id });
+    const { product } = prodState;
+
+    dispatchCart({ type: ADD_TO_CART, payload: product.id });
     // Puis créer une page qui permet d'afficher les produits qui sont dans le panier
     // Utiliser un tableau d'objets
   };
