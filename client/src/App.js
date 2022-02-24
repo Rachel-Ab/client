@@ -4,8 +4,11 @@ import { AuthProvider } from './contexts/auth';
 import { ProductProvider } from './contexts/products';
 import { CartProvider } from './contexts/cart';
 import { AuthContext } from './contexts/auth';
+import { LOGIN } from './contexts/auth/types';
 import PublicRoute from './components/routes/PublicRoute';
 import PrivateRoute from './components/routes/PrivateRoute';
+
+import setAuthToken from './utils/setAuthToken';
 // Public Routes
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
@@ -24,12 +27,16 @@ const App = () => {
   useEffect(() => {
     // Ici, vérification du localstorage pour le token d'authentification
     // S'il est présent on configure axios, sinon rien
-
-    console.log(authState.isAuthenticated);
-
-    // ? Toujours utile ?
     if (localStorage.getItem('cart') === null) {
       localStorage.setItem('cart', '[]');
+    }
+
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      setAuthToken(token);
+
+      dispatch({ type: LOGIN, payload: token });
     }
   }, []);
 
@@ -48,13 +55,8 @@ const App = () => {
             <PublicRoute path="/blog" component={Blog} />
 
             {/* Private Routes */}
-            <PrivateRoute
-              path="/dashboard"
-              component={WelcomeAdmin}
-              authState={authState}
-              authenticated={authState.isAuthenticated}
-              loading={authState.loading}
-            />
+            <PrivateRoute path="/dashboard" component={WelcomeAdmin} />
+            <PrivateRoute path="/orders" component={WelcomeAdmin} />
 
             <PublicRoute to="/404" component={NotFound} />
           </Switch>

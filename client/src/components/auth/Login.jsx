@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { LOGIN, ERROR } from '../../contexts/auth/types';
 import { AuthContext } from '../../contexts/auth';
@@ -6,7 +7,7 @@ import { Link } from 'react-router-dom';
 import AuthForm from './AuthForm';
 
 const Login = () => {
-  const [, dispatch] = useContext(AuthContext);
+  const [authState, dispatch] = useContext(AuthContext);
 
   const login = data => {
     // Quand on reçoit le token, le mettre dans localStorage
@@ -24,10 +25,16 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-      Login or <Link to="/register">Register</Link>
-      <AuthForm method={login} />
-    </div>
+    <Fragment>
+      {authState.isAuthenticated ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <div className="container">
+          Login or <Link to="/register">Register</Link>
+          <AuthForm method={login} />
+        </div>
+      )}
+    </Fragment>
   );
 };
 

@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { CartContext } from '../../../contexts/cart';
+import { AuthContext } from '../../../contexts/auth';
 
 const Nav = () => {
   const [cartState] = useContext(CartContext);
+  const [authState] = useContext(AuthContext);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -29,6 +31,7 @@ const Nav = () => {
           <li>
             <NavLink to="/blog">Blog</NavLink>
           </li>
+          {/*Cacher les liens register et login si loggedin*/}
           <li>
             <NavLink to="/register">Signup</NavLink>
           </li>
@@ -40,9 +43,11 @@ const Nav = () => {
               Panier <span className="badge">{count > 0 ? count : null}</span>
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard">Votre compte</NavLink>
-          </li>
+          {authState?.isAuthenticated ? (
+            <li>
+              <NavLink to="/dashboard">Votre compte</NavLink>
+            </li>
+          ) : null}
         </ul>
       </div>
     </header>
