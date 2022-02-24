@@ -3,6 +3,7 @@ import axios from 'axios';
 // import { REGISTER } from '../../contexts/auth/types';
 // import { AuthContext } from '../../contexts/auth';
 import { Link } from 'react-router-dom';
+import AuthForm from './AuthForm';
 
 const Login = () => {
   // const [, dispatch] = useContext(AuthContext);
@@ -11,6 +12,8 @@ const Login = () => {
     e.preventDefault();
     console.log('login in');
 
+    // Quand on reçoit le token, le mettre dans localStorage
+    // Voir on maintient comment une 'session'
     // api/auth
     // axios
     //   .post('/api/auth', { email:'test@test.com', password: 'testing' })
@@ -25,11 +28,7 @@ const Login = () => {
   return (
     <div className="container">
       Login or <Link to="/register">Register</Link>
-      <form onSubmit={login}>
-        <input name="email" type="email" onChange={handleChange} />
-        <input name="password" type="password" onChange={handleChange} />
-        <button type="submit">Envoyer</button>
-      </form>
+      <AuthForm method={login} />
     </div>
   );
 };
