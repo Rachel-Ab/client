@@ -1,9 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { CartContext } from '../../../contexts/cart';
 import { ucfirst, convertToEuro, formatPrice } from '../../../utils/helpers';
+import { REMOVE_ITEM, UPDATE_QTY } from '../../../contexts/cart/types';
 
 const Tbody = ({ products }) => {
+  const [, dispatch] = useContext(CartContext);
+
+  //
   const count = products.length;
   const totalHT = 0;
   const totalTTC = 0;
@@ -14,9 +19,17 @@ const Tbody = ({ products }) => {
   // La somme TTC des produits
 
   // Un select qui permet de modifier la quantité qu'on souhaite commander
-  const handleUpdateQty = () => {};
+  const handleUpdateQty = (id, e) => {
+    e.preventDefault();
 
-  const removeProductHandler = () => {};
+    dispatch({ type: UPDATE_QTY, payload: { id, qty: e.target.value } });
+  };
+
+  const removeProductHandler = (id, e) => {
+    e.preventDefault();
+
+    dispatch({ type: REMOVE_ITEM, payload: id });
+  };
 
   return (
     <Fragment>

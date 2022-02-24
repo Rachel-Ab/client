@@ -1,6 +1,6 @@
 import { createContext, useReducer } from 'react';
 
-import { REGISTER, LOGIN } from './types';
+import { REGISTER, LOGIN, LOGOUT } from './types';
 // Définition du state, du context etc etc
 const initialState = {
   user: [],
@@ -16,6 +16,12 @@ const reducer = (state, action) => {
     }
 
     case LOGIN: {
+      return {
+        ...state,
+        user: action.payload,
+      };
+    }
+    case LOGOUT: {
       return {
         ...state,
         user: action.payload,
