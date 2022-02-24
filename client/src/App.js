@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/auth';
 import { ProductProvider } from './contexts/products';
 import { CartProvider } from './contexts/cart';
+import { CategoryProvider } from './contexts/categories';
 import { AuthContext } from './contexts/auth';
 import { LOGIN } from './contexts/auth/types';
 import PublicRoute from './components/routes/PublicRoute';
@@ -41,28 +42,30 @@ const App = () => {
   }, []);
 
   return (
-    <ProductProvider>
-      <CartProvider>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <PublicRoute path="/register" component={Register} />
-            <PublicRoute path="/login" component={Login} />
-            <PublicRoute path="/about" component={About} />
-            <PublicRoute path="/shop" component={Shop} />
-            <PublicRoute path="/product/:id" component={ProdPage} />
-            <PublicRoute path="/cart" component={Cart} />
-            <PublicRoute path="/blog" component={Blog} />
+    <CategoryProvider>
+      <ProductProvider>
+        <CartProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <PublicRoute path="/register" component={Register} />
+              <PublicRoute path="/login" component={Login} />
+              <PublicRoute path="/about" component={About} />
+              <PublicRoute path="/shop" component={Shop} />
+              <PublicRoute path="/product/:id" component={ProdPage} />
+              <PublicRoute path="/cart" component={Cart} />
+              <PublicRoute path="/blog" component={Blog} />
 
-            {/* Private Routes */}
-            <PrivateRoute path="/dashboard" component={WelcomeAdmin} />
-            <PrivateRoute path="/orders" component={WelcomeAdmin} />
+              {/* Private Routes */}
+              <PrivateRoute path="/dashboard" component={WelcomeAdmin} />
+              <PrivateRoute path="/orders" component={WelcomeAdmin} />
 
-            <PublicRoute to="/404" component={NotFound} />
-          </Switch>
-        </Router>
-      </CartProvider>
-    </ProductProvider>
+              <PublicRoute to="/404" component={NotFound} />
+            </Switch>
+          </Router>
+        </CartProvider>
+      </ProductProvider>
+    </CategoryProvider>
   );
 };
 

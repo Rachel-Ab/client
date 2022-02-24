@@ -1,19 +1,42 @@
-import React, { useEffect, useContext, Fragment } from 'react';
+import React, { useEffect, useContext, Fragment, useState } from 'react';
 import { ProductContext } from '../../../contexts/products';
+import { CategoryContext } from '../../../contexts/categories';
 import axios from 'axios';
-import { GET_PRODUCTS } from '../../../contexts/products/types';
+import {
+  GET_PRODUCTS,
+  FILTERED_PRODUCTS,
+} from '../../../contexts/products/types';
+import { GET_CATEGORIES, FILTER_CAT } from '../../../contexts/categories/types';
+
 import Products from './Products';
 
 const Shop = () => {
   const [productsState, dispatch] = useContext(ProductContext);
+  const [categoriesState, dispatchCats] = useContext(CategoryContext);
 
   useEffect(() => {
-    axios.get('/api/products').then(res => {
-      dispatch({ type: GET_PRODUCTS, payload: res.data });
-    });
+    axios
+      .get('/api/categories')
+      .then(res => {
+        dispatchCats({ type: GET_CATEGORIES, payload: res.data });
+      })
+      .catch(e => console.error(e));
 
-    // url : '/api/categories'
-  }, [dispatch]);
+    axios
+      .get('/api/products')
+      .then(res => {
+        dispatch({ type: GET_PRODUCTS, payload: res.data });
+      })
+      .catch(e => console.error(e));
+  }, [dispatch, dispatchCats]);
+
+  useEffect(() => {
+    dispatch({ type: FILTERED_PRODUCTS, payload: 'all' });
+  }, [productsState.products]);
+
+  const handleFilter = catId => {
+    dispatch({ type: FILTERED_PRODUCTS, payload: catId });
+  };
 
   return (
     <Fragment>
@@ -29,9 +52,12 @@ const Shop = () => {
         <div className="">
           <h3>Trier par catégorie</h3>
           <ul>
-            <li>cat 1</li>
-            <li>cat 2</li>
-            <li>cat 3</li>
+            {/*<li onClick={() => handleFilter('all')}>All</li>*/}
+            {categoriesState?.categories.map(cat => (
+              <li key={cat.id} onClick={() => handleFilter(cat.id)}>
+                {cat.name}
+              </li>
+            ))}
           </ul>
           <h3>Trier par prix</h3>
           <ul>
@@ -47,7 +73,7 @@ const Shop = () => {
               Si productsState n'est pas prêt, grâce au ? on
               n'aura pas d'erreur.
               */}
-            <Products products={productsState?.products} />
+            <Products products={productsState?.filtered} />
           </div>
         </div>
       </div>

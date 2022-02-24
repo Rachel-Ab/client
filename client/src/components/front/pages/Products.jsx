@@ -16,8 +16,8 @@ import { convertToEuro, ucfirst } from '../../../utils/helpers';
 const Products = ({ products }) => {
   return (
     <Fragment>
-      {products.length ? (
-        products.map(product => (
+      {products?.length ? (
+        products?.map(product => (
           <div key={product.id} className="product">
             <Link to={`product/${product.id}`}>
               <img src={product.image} alt={product.metaDescription} />
