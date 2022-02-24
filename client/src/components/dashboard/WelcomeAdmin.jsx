@@ -1,7 +1,7 @@
 import React from 'react';
 import './common/dashboard.css';
 
-const WelcomeAdmin = () => {
+const WelcomeAdmin = props => {
   return (
     <div className="container-fluid">
       <div className="row">

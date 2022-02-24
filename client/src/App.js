@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/auth';
 import { ProductProvider } from './contexts/products';
 import { CartProvider } from './contexts/cart';
+import { AuthContext } from './contexts/auth';
 import PublicRoute from './components/routes/PublicRoute';
 import PrivateRoute from './components/routes/PrivateRoute';
 // Public Routes
@@ -18,9 +19,13 @@ import Cart from './components/front/pages/Cart';
 import WelcomeAdmin from './components/dashboard/WelcomeAdmin';
 
 const App = () => {
+  const [authState, dispatch] = useContext(AuthContext);
+
   useEffect(() => {
     // Ici, vérification du localstorage pour le token d'authentification
     // S'il est présent on configure axios, sinon rien
+
+    console.log(authState.isAuthenticated);
 
     // ? Toujours utile ?
     if (localStorage.getItem('cart') === null) {
@@ -31,29 +36,29 @@ const App = () => {
   return (
     <ProductProvider>
       <CartProvider>
-        <AuthProvider>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <PublicRoute path="/register" component={Register} />
-              <PublicRoute path="/login" component={Login} />
-              <PublicRoute path="/about" component={About} />
-              <PublicRoute path="/shop" component={Shop} />
-              <PublicRoute path="/product/:id" component={ProdPage} />
-              <PublicRoute path="/cart" component={Cart} />
-              <PublicRoute path="/blog" component={Blog} />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <PublicRoute path="/register" component={Register} />
+            <PublicRoute path="/login" component={Login} />
+            <PublicRoute path="/about" component={About} />
+            <PublicRoute path="/shop" component={Shop} />
+            <PublicRoute path="/product/:id" component={ProdPage} />
+            <PublicRoute path="/cart" component={Cart} />
+            <PublicRoute path="/blog" component={Blog} />
 
-              {/* Private Routes */}
-              <PrivateRoute
-                path="/dashboard"
-                component={WelcomeAdmin}
-                authenticated={true}
-                loading={false}
-              />
-              <PublicRoute to="/404" component={NotFound} />
-            </Switch>
-          </Router>
-        </AuthProvider>
+            {/* Private Routes */}
+            <PrivateRoute
+              path="/dashboard"
+              component={WelcomeAdmin}
+              authState={authState}
+              authenticated={authState.isAuthenticated}
+              loading={authState.loading}
+            />
+
+            <PublicRoute to="/404" component={NotFound} />
+          </Switch>
+        </Router>
       </CartProvider>
     </ProductProvider>
   );

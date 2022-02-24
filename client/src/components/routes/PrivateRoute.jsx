@@ -2,24 +2,20 @@ import React, { Fragment } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../dashboard/common/Header';
 import Nav from '../dashboard/common/Nav';
-// import QuickActions from "../dashboard/common/QuickActions";
-
-const isAuthenticated = true;
-const loading = false;
+import login from '../auth/Login';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      !isAuthenticated && loading ? (
+      !props.authenticated && props.loading ? (
         <Redirect to="login" />
       ) : (
         <Fragment>
           <Header />
           <Nav />
           <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            {/*<QuickActions />*/}
-            <Component {...props} />
+            <Component {...rest} />
           </main>
         </Fragment>
       )

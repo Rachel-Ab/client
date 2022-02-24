@@ -40,6 +40,9 @@ const Nav = () => {
               Panier <span className="badge">{count > 0 ? count : null}</span>
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard">Votre compte</NavLink>
+          </li>
         </ul>
       </div>
     </header>
