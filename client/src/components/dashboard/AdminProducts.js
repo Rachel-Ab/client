@@ -22,12 +22,30 @@ const AdminProducts = () => {
           créer
         </p>
       </div>
-      <form>
-        <input type="text" name="title" />
-        <input type="text" name="metaDescription" />
-        <input type="text" name="description" />
-        <button type="submit">Submit</button>
-      </form>
+
+      {/*FormRow */}
+      {/*FormRow:first-child*/}
+
+      <div>
+        <form className="half-form Form">
+          <div className="form-group FormGroup">
+            <div className="FormRow">
+              <label className="FormRowLabel" htmlFor="title" />
+              <input type="text" name="title" id="title" />
+            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="metaDescription" />
+            <input type="text" name="metaDescription" id="metaDescription" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description" />
+            <input type="text" name="description" id="description" />
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     </div>
   );
 };
