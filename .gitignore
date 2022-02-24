@@ -6,4 +6,3 @@ tmp/
 temp/
 .env
 uploads
-server.js
