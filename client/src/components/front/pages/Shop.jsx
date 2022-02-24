@@ -5,8 +5,9 @@ import axios from 'axios';
 import {
   GET_PRODUCTS,
   FILTERED_PRODUCTS,
+  FILTERED_PRODUCTS_BY_PRICE,
 } from '../../../contexts/products/types';
-import { GET_CATEGORIES, FILTER_CAT } from '../../../contexts/categories/types';
+import { GET_CATEGORIES } from '../../../contexts/categories/types';
 
 import Products from './Products';
 
@@ -38,6 +39,10 @@ const Shop = () => {
     dispatch({ type: FILTERED_PRODUCTS, payload: catId });
   };
 
+  const handleFilterByPrice = range => {
+    dispatch({ type: FILTERED_PRODUCTS_BY_PRICE, payload: range });
+  };
+
   return (
     <Fragment>
       <div className="breadcrumbs">
@@ -52,7 +57,7 @@ const Shop = () => {
         <div className="">
           <h3>Trier par catégorie</h3>
           <ul>
-            {/*<li onClick={() => handleFilter('all')}>All</li>*/}
+            <li onClick={() => handleFilter('all')}>All</li>
             {categoriesState?.categories.map(cat => (
               <li key={cat.id} onClick={() => handleFilter(cat.id)}>
                 {cat.name}
@@ -61,9 +66,13 @@ const Shop = () => {
           </ul>
           <h3>Trier par prix</h3>
           <ul>
-            <li>0€ - 150€</li>
-            <li>150€ - €450</li>
-            <li>€450 +</li>
+            <li onClick={() => handleFilterByPrice({ min: 0, max: 150 })}>
+              0€ - 150€
+            </li>
+            <li onClick={() => handleFilterByPrice({ min: 150, max: 450 })}>
+              150€ - €450
+            </li>
+            <li onClick={() => handleFilterByPrice({ min: 450 })}>€450 +</li>
           </ul>
         </div>
 
