@@ -1,6 +1,15 @@
+import { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { CartContext } from '../../../contexts/cart';
 
 const Nav = () => {
+  const [cartState] = useContext(CartContext);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setCount(cartState?.products.length);
+  }, [cartState]);
+
   return (
     <header>
       <div className="top-nav container">
@@ -27,7 +36,9 @@ const Nav = () => {
             <NavLink to="/login">Sign in</NavLink>
           </li>
           <li>
-            <NavLink to="/cart">Panier</NavLink>
+            <NavLink to="/cart">
+              Panier <span className="badge">{count > 0 ? count : null}</span>
+            </NavLink>
           </li>
         </ul>
       </div>

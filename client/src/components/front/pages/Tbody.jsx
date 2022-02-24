@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { CartContext } from '../../../contexts/cart';
@@ -6,19 +6,24 @@ import { ucfirst, convertToEuro, formatPrice } from '../../../utils/helpers';
 import { REMOVE_ITEM, UPDATE_QTY } from '../../../contexts/cart/types';
 
 const Tbody = ({ products }) => {
+  const [totalHT, setTotalHT] = useState(0);
+  const [totalTTC, setTotalTTC] = useState(0);
   const [, dispatch] = useContext(CartContext);
+  const count = products.length;
 
   //
-  const count = products.length;
-  const totalHT = 0;
-  const totalTTC = 0;
-  // Faire un tableau présentable avec l'image, le prixHT, le prixTTC
 
-  // La somme HT des produits
+  useEffect(() => {
+    let HT = 0;
 
-  // La somme TTC des produits
+    products.forEach(p => {
+      HT += p.priceHT * p.qty;
+    });
 
-  // Un select qui permet de modifier la quantité qu'on souhaite commander
+    setTotalHT(convertToEuro(HT));
+    setTotalTTC(formatPrice(HT));
+  }, [products]);
+
   const handleUpdateQty = (id, e) => {
     e.preventDefault();
 
@@ -125,7 +130,8 @@ const Tbody = ({ products }) => {
 
               <div className="cart-totals-right">
                 <div>
-                  Subtotal <br />
+                  Subtotal HT
+                  <br />
                   Tax <br />
                   <span className="cart-totals-total">Total</span>
                 </div>
