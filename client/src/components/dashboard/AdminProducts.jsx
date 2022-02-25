@@ -90,6 +90,8 @@ const AdminProducts = () => {
     // axios.defaults.headers.common['Content-Type'] = 'multipart/form-data';
     // axios.defaults.headers.common['Accept'] = 'application/json';
 
+    // est'ce une update ? si oui method === 'patch' et url = '/api/products/update'
+
     axios
       .post('/api/products/create', formData)
       .then(res => {
@@ -108,15 +110,10 @@ const AdminProducts = () => {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h2 className="h2">Page admin products</h2>
         </div>
-        <p>Recupérer tous les produits</p>
         <p>
-          Quand on clique sur un produit de la liste, le formulaire se
-          pré-remplit avec les infos correctes du produit qu'on veut mettre à
-          jour
-        </p>
-        <p>
-          Récuperer les categories pour en associer une au produit que l'on
-          créer
+          il faut : quand on 'submit' le form, on va devoir soit mettre à jour,
+          soit créer un produit, les données de la requête seront les mêmes,
+          l'url changera ainsi que la méthode (POST, PATCH)
         </p>
       </div>
 
