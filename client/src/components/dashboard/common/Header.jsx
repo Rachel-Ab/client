@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/auth';
+import { LOGOUT } from '../../../contexts/auth/types';
 
 const Header = () => {
+  const [, dispatch] = useContext(AuthContext);
+
+  const logout = e => {
+    e.preventDefault();
+
+    dispatch({ type: LOGOUT, payload: null });
+  };
+
   return (
     <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
       <Link className="navbar-brand col-md-3 col-lg-2 me-0 px-3" to="/shop">
@@ -26,9 +36,9 @@ const Header = () => {
       />
       <div className="navbar-nav">
         <div className="nav-item text-nowrap">
-          <a className="nav-link px-3" href="#">
+          <Link className="nav-link px-3" to="/logout" onClick={logout}>
             Sign out
-          </a>
+          </Link>
         </div>
       </div>
     </header>

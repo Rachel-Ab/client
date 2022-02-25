@@ -3,11 +3,18 @@ import axios from 'axios';
 import { AuthContext } from '../../../contexts/auth';
 import { GET_USER } from '../../../contexts/auth/types';
 import { NavLink } from 'react-router-dom';
+import setAuthToken from '../../../utils/setAuthToken';
 
 const Nav = () => {
   const [authState, dispatch] = useContext(AuthContext);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      setAuthToken(token);
+    }
+
     axios.get('/api/auth').then(res => {
       dispatch({ type: GET_USER, payload: res.data });
     });

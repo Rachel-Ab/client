@@ -22,9 +22,13 @@ const reducer = (state, action) => {
     // Y penser
     case LOGOUT:
     case ERROR: {
+      localStorage.removeItem('token');
       return {
         ...state,
-        user: '',
+        token: null,
+        user: {},
+        isAuthenticated: false,
+        loading: true,
       };
     }
 

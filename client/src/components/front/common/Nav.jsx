@@ -1,16 +1,23 @@
-import { useContext, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { LOGOUT } from '../../../contexts/auth/types';
 import { CartContext } from '../../../contexts/cart';
 import { AuthContext } from '../../../contexts/auth';
 
 const Nav = () => {
   const [cartState] = useContext(CartContext);
-  const [authState] = useContext(AuthContext);
+  const [authState, dispatch] = useContext(AuthContext);
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     setCount(cartState?.products.length);
   }, [cartState]);
+
+  const logout = e => {
+    e.preventDefault();
+
+    dispatch({ type: LOGOUT, payload: null });
+  };
 
   return (
     <header>
@@ -44,9 +51,16 @@ const Nav = () => {
             </NavLink>
           </li>
           {authState?.isAuthenticated ? (
-            <li>
-              <NavLink to="/dashboard">Votre compte</NavLink>
-            </li>
+            <Fragment>
+              <li>
+                <NavLink to="/dashboard">Votre compte</NavLink>
+              </li>
+              <li>
+                <NavLink onClick={logout} to="/logout">
+                  Déconnexion
+                </NavLink>
+              </li>
+            </Fragment>
           ) : null}
         </ul>
       </div>
