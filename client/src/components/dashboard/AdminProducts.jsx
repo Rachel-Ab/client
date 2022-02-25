@@ -60,8 +60,6 @@ const AdminProducts = () => {
     };
   };
 
-  const { title, metaDescription, description, priceHT } = formData;
-
   const onSubmit = e => {
     e.preventDefault();
 
@@ -70,6 +68,8 @@ const AdminProducts = () => {
       .then(res => console.log(res))
       .catch(e => console.log(e));
   };
+
+  const { title, metaDescription, description, priceHT, image } = formData;
 
   return (
     <div className="container mt-5 mb-5">
@@ -171,6 +171,7 @@ const AdminProducts = () => {
               placeholder="image"
             />
           </div>
+          {image ? <img src={image} alt="alt" /> : null}
         </div>
         <div className="form-group FormGroup">
           <div className="FormRow">
