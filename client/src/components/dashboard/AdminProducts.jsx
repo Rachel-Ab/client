@@ -63,9 +63,20 @@ const AdminProducts = () => {
   const onSubmit = e => {
     e.preventDefault();
 
+    // Si on veut uploader le fichier image et envoyer les données de manière 'classique' :
+    // il faudra aussi modifier le fichier server.js pour obtenir les images et le fichier api/products.js
+
+    // const data = new FormData(e.target);
+    // data.append('description', formData.description);
+    //
+    // axios.defaults.headers.common['Content-Type'] = 'multipart/form-data';
+    // axios.defaults.headers.common['Accept'] = 'application/json';
+
     axios
       .post('/api/products/create', formData)
-      .then(res => console.log(res))
+      .then(res => {
+        return setFormData(initialState);
+      })
       .catch(e => console.log(e));
   };
 
@@ -93,6 +104,7 @@ const AdminProducts = () => {
       {/*FormRow:first-child*/}
 
       {/*<div className="col-md-4">*/}
+
       <form
         onSubmit={onSubmit}
         encType="multipart/form-data"
