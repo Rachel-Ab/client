@@ -23,6 +23,7 @@ import Cart from './components/front/pages/Cart';
 // Private Routes
 import WelcomeAdmin from './components/dashboard/WelcomeAdmin';
 import AdminProducts from './components/dashboard/AdminProducts';
+import Coupons from './components/dashboard/Coupons';
 
 const App = () => {
   const [authState, dispatch] = useContext(AuthContext);
@@ -65,6 +66,7 @@ const App = () => {
                 path="/dashboard/Products"
                 component={AdminProducts}
               />
+              <PrivateRoute path="/dashboard/coupons" component={Coupons} />
               <PublicRoute to="/404" component={NotFound} />
             </Switch>
           </Router>

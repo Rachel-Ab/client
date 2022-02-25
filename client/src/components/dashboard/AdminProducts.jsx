@@ -10,6 +10,8 @@ import { GET_CATEGORIES } from '../../contexts/categories/types';
 // Les champs name pour créer un prod category_id, title, metaDescription, description, priceHT
 // + image
 
+// Mettre un bouton d'annulation de editMode
+
 const AdminProducts = () => {
   // /api/products
   // /api/categories
@@ -45,15 +47,20 @@ const AdminProducts = () => {
   }, [dispatchProds, dispatchCats]);
 
   useEffect(() => {
-    setFormData(product);
+    setFormData(() => {
+      return {
+        ...product,
+        description: product.description,
+      };
+    });
   }, [product]);
 
   const onChangeHandler = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleChangeQuill = value => {
-    setFormData({ ...formData, description: value });
+  const handleChangeQuill = e => {
+    return setFormData({ ...formData, description: e.target.innerHTML });
   };
 
   const loadImage = e => {
@@ -91,12 +98,22 @@ const AdminProducts = () => {
     // axios.defaults.headers.common['Accept'] = 'application/json';
 
     // est'ce une update ? si oui method === 'patch' et url = '/api/products/update'
+    let url = '/api/products/create';
+    let method = 'post';
 
-    axios
-      .post('/api/products/create', formData)
+    if (editMode) {
+      url = '/api/products/update';
+      method = 'patch';
+    }
+
+    // console.log(formData);
+
+    axios[method](url, formData)
       .then(res => {
         selectRef.current.value =
           'Cliquer pour sélectionner la catégorie du produit';
+        setEditMode(false);
+        setProduct({});
         return setFormData(initialState);
       })
       .catch(e => console.log(e));
@@ -198,7 +215,7 @@ const AdminProducts = () => {
             name="body"
             id="body"
             modules={quillModule}
-            onChange={handleChangeQuill}
+            onKeyDown={handleChangeQuill}
           />
         </div>
 

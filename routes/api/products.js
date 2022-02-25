@@ -140,6 +140,8 @@ router.patch(
       );
       res.status(200).json({ msg: 'Products updated' });
     } catch (e) {
+      console.log(e);
+      console.log(e.message);
       res.status(400).send('Server Error');
     }
   }

@@ -61,6 +61,12 @@ const Nav = () => {
                   Products
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/dashboard/coupons">
+                  <span data-feather="layers" />
+                  Coupons
+                </NavLink>
+              </li>
             </>
           ) : null}
           {/* admin */}
