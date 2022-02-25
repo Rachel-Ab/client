@@ -4,6 +4,8 @@ import React, { useContext } from 'react';
 // + image
 
 const AdminProducts = () => {
+  // /api/products
+  // /api/categories
   return (
     <div className="container-fluid">
       <div className="row">
@@ -11,11 +13,10 @@ const AdminProducts = () => {
           <h2 className="h2">Page admin products</h2>
         </div>
         <p>Recupérer tous les produits</p>
-        <p>Faire un form pour créer un produit</p>
-        <p>Faire un form pour mettre a jour les produits</p>
         <p>
-          Quand on clique sur un produit de la liste, le formulaire de
-          pré-remplit
+          Quand on clique sur un produit de la liste, le formulaire se
+          pré-remplit avec les infos correctes du produit qu'on veut mettre à
+          jour
         </p>
         <p>
           Récuperer les categories pour en associer une au produit que l'on
