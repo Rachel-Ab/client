@@ -58,7 +58,7 @@ router.get('/:id', param('id').isInt(), async function (req, res) {
  * @body object product
  * @doNotForget validation
  */
-router.post('/create', [auth /*upload.single('image')*/], async (req, res) => {
+router.post('/create', [auth], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -82,14 +82,14 @@ router.post('/create', [auth /*upload.single('image')*/], async (req, res) => {
       title: title,
       metaDescription: metaDescription,
       priceHT: priceHT,
-      image:
-        image /*req.file.path.replace('uploads', 'http://localhost:5000/uploads')*/,
+      /*req.file.path.replace('uploads', 'http://localhost:5000/uploads')*/
+      image: image,
       description: description,
     });
 
     res.status(200).json({ product, msg: 'Article cree' });
   } catch (e) {
-    console.error(e);
+    console.error(e.message);
     res.status(500).send('Server Error');
   }
 });

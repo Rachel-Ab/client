@@ -22,6 +22,8 @@ const AdminProducts = () => {
     image: '',
   };
   const [formData, setFormData] = useState(initialState);
+  const [product, setProduct] = useState({});
+  const [editMode, setEditMode] = useState(false);
   const [productState, dispatchProds] = useContext(ProductContext);
   const [categoriesState, dispatchCats] = useContext(CategoryContext);
   const selectRef = useRef();
@@ -43,8 +45,8 @@ const AdminProducts = () => {
   }, [dispatchProds, dispatchCats]);
 
   useEffect(() => {
-    console.log('useEF', formData);
-  }, [formData]);
+    setFormData(product);
+  }, [product]);
 
   const onChangeHandler = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -69,17 +71,11 @@ const AdminProducts = () => {
   const onUpdateClick = (prod, e) => {
     e.preventDefault();
 
-    setFormData({
-      id: prod.id,
-      category_id: prod.category_id,
-      title: prod.title,
-      description: prod.description,
-      metaDescription: prod.metaDescription,
-      image: prod.image,
-      priceHT: prod.priceHT,
-    });
+    setProduct(() => productState?.products.find(p => p.id === prod.id));
 
     selectRef.current.value = prod.category_id;
+
+    setEditMode(true);
   };
 
   const onSubmit = e => {
