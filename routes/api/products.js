@@ -58,14 +58,14 @@ router.get('/:id', param('id').isInt(), async function (req, res) {
  * @body object product
  * @doNotForget validation
  */
-router.post('/create', [auth, upload.single('image')], async (req, res) => {
+router.post('/create', [auth], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
   try {
-    const { category_id, title, metaDescription, description, priceHT } =
+    const { category_id, title, metaDescription, description, priceHT, image } =
       req.body;
 
     const catInstance = Category();
@@ -82,7 +82,7 @@ router.post('/create', [auth, upload.single('image')], async (req, res) => {
       title: title,
       metaDescription: metaDescription,
       priceHT: priceHT,
-      image: req.file.path.replace('uploads', 'http://localhost:5000/uploads'),
+      image: image,
       description: description,
     });
 

@@ -93,7 +93,11 @@ const AdminProducts = () => {
       {/*FormRow:first-child*/}
 
       {/*<div className="col-md-4">*/}
-      <form onSubmit={onSubmit} encType="multipart/form-data" className="form">
+      <form
+        onSubmit={onSubmit}
+        encType="multipart/form-data"
+        className="form col-md-6"
+      >
         <div className="form-group FormGroup">
           <div className="FormRow">
             <label className="FormRowLabel" htmlFor="title">
@@ -140,7 +144,7 @@ const AdminProducts = () => {
           </div>
         </div>
 
-        <div className="col-md-5 mb-5">
+        <div className=" mb-5">
           <label className="form-label" htmlFor="description">
             Description
           </label>
