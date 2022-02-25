@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import quillModule from '../../utils/quillModule';
@@ -21,8 +22,9 @@ const AdminProducts = () => {
     image: '',
   };
   const [formData, setFormData] = useState(initialState);
-  const [prodState, dispatchProds] = useContext(ProductContext);
+  const [productState, dispatchProds] = useContext(ProductContext);
   const [categoriesState, dispatchCats] = useContext(CategoryContext);
+  const selectRef = useRef();
 
   useEffect(() => {
     axios
@@ -39,6 +41,10 @@ const AdminProducts = () => {
       })
       .catch(e => console.error(e));
   }, [dispatchProds, dispatchCats]);
+
+  useEffect(() => {
+    console.log('useEF', formData);
+  }, [formData]);
 
   const onChangeHandler = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,6 +66,22 @@ const AdminProducts = () => {
     };
   };
 
+  const onUpdateClick = (prod, e) => {
+    e.preventDefault();
+
+    setFormData({
+      id: prod.id,
+      category_id: prod.category_id,
+      title: prod.title,
+      description: prod.description,
+      metaDescription: prod.metaDescription,
+      image: prod.image,
+      priceHT: prod.priceHT,
+    });
+
+    selectRef.current.value = prod.category_id;
+  };
+
   const onSubmit = e => {
     e.preventDefault();
 
@@ -75,6 +97,8 @@ const AdminProducts = () => {
     axios
       .post('/api/products/create', formData)
       .then(res => {
+        selectRef.current.value =
+          'Cliquer pour sélectionner la catégorie du produit';
         return setFormData(initialState);
       })
       .catch(e => console.log(e));
@@ -104,6 +128,21 @@ const AdminProducts = () => {
       {/*FormRow:first-child*/}
 
       {/*<div className="col-md-4">*/}
+      <div className="">
+        <ul>
+          {productState?.products ? (
+            productState?.products.map(prod => (
+              <li key={prod.id}>
+                <Link onClick={e => onUpdateClick(prod, e)} to={prod.title}>
+                  {prod.title}
+                </Link>
+              </li>
+            ))
+          ) : (
+            <p>Vous n'avez pas enregistré de produits</p>
+          )}
+        </ul>
+      </div>
 
       <form
         onSubmit={onSubmit}
@@ -195,6 +234,7 @@ const AdminProducts = () => {
               name="category_id"
               id="category_id"
               onChange={onChangeHandler}
+              ref={selectRef}
             >
               <option defaultValue>
                 Cliquer pour sélectionner la catégorie du produit
