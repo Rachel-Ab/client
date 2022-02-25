@@ -95,7 +95,7 @@ router.post('/create', [auth], async (req, res) => {
 });
 
 /**
- * @route POST api/products/update
+ * @route PATCH api/products/update
  * @body object category
  */
 router.patch(
